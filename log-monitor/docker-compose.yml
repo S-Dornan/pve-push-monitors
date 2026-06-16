@@ -4,7 +4,7 @@
 
 services:
   health-monitor:
-    image: gitea.samdornan.me/underperforming-software/pve-push-monitor:latest
+    image: ghcr.io/s-dornan/pve-push-monitor:latest
     container_name: uptime-kuma-health
     restart: always
     environment:
@@ -15,7 +15,7 @@ services:
       - CF_CLIENT_SECRET=${CF_CLIENT_SECRET}
 
   stream-monitor:
-    image: gitea.samdornan.me/underperforming-software/pve-push-monitor:latest
+    image: ghcr.io/s-dornan/pve-push-monitor:latest
     container_name: uptime-kuma-stream
     restart: always
     environment:
