@@ -27,7 +27,7 @@ jobs:
           $RUNNER_TEMP/sbom-tool generate -b ./log-monitor -bc ./log-monitor -pn PVEThesisMonitor -pv 1.0.0 -ps InfrastructureTeam -nsb https://github.com/${{ github.repository }}/sbom/pve-thesis-monitor -V Verbose
 
       - name: Upload SBOM Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: source-sbom-manifest
           path: ./log-monitor/_manifest
