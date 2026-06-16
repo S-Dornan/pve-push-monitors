@@ -1,0 +1,28 @@
+# Copyright (C) 2026 Sam Dornan
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+# Runs both online and experiment telemetry monitors in a single container. This is the main entrypoint for the thesis monitoring system.
+
+services:
+  health-monitor:
+    image: gitea.samdornan.me/underperforming-software/pve-push-monitor:latest
+    container_name: uptime-kuma-health
+    restart: always
+    environment:
+      - MONITOR_TYPE=health
+      - PUSH_URL=${HEALTH_PUSH_URL}
+      - PUSH_INTERVAL=${PUSH_INTERVAL}
+      - CF_CLIENT_ID=${CF_CLIENT_ID}
+      - CF_CLIENT_SECRET=${CF_CLIENT_SECRET}
+
+  stream-monitor:
+    image: gitea.samdornan.me/underperforming-software/pve-push-monitor:latest
+    container_name: uptime-kuma-stream
+    restart: always
+    environment:
+      - MONITOR_TYPE=stream
+      - PUSH_URL=${STREAM_PUSH_URL}
+      - PUSH_INTERVAL=${PUSH_INTERVAL}
+      - CF_CLIENT_ID=${CF_CLIENT_ID}
+      - CF_CLIENT_SECRET=${CF_CLIENT_SECRET}
+    volumes:
+      - /home/ubuntu/experiment-telemetry.log:/var/log/experiment-telemetry.log:ro
