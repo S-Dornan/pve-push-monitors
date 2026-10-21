@@ -4,6 +4,8 @@
 name: Build and Push PVE Thesis Monitor
 
 on:
+  schedule:
+    - cron: '0 1 * * *' # Runs nightly at 01:00 UTC (1 hour after pve-prod-base)
   workflow_dispatch:
 
 jobs:
@@ -29,7 +31,7 @@ jobs:
       - name: Upload SBOM Artifact
         uses: actions/upload-artifact@v7
         with:
-          name: source-sbom-manifest
+          name: pve-thesis-monitor-source-sbom-manifest
           path: ./log-monitor/_manifest
       
       - name: Extract Docker metadata
@@ -53,6 +55,23 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build local image for scanning
+        uses: docker/build-push-action@v7
+        with:
+          context: ./log-monitor
+          platforms: linux/amd64
+          load: true
+          tags: 'pve-push-monitor:local-scan-thesis'
+          no-cache: true
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@6abccf398f78b4c337599c0656f933d91efb91a0
+        with:
+          image-ref: 'pve-push-monitor:local-scan-thesis'
+          format: 'table'
+          exit-code: '1' # Block pushes on critical or high vulnerability detection.
+          severity: 'CRITICAL,HIGH'
 
       - name: Build and push
         uses: docker/build-push-action@v7
