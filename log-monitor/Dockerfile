@@ -21,7 +21,7 @@ RUN bats monitor.bats
 # STAGE 2: PRODUCTION
 # ==========================================
 # Pulling the mathematically verified, minimal base you just built
-FROM ghcr.io/s-dornan/pve-prod-base@sha256:6e486f571ed8f06857732aa14b19725a9df2a35002268f86113e445317189825
+FROM ghcr.io/s-dornan/pve-prod-base@sha256:c0bbfe05ae3bd6758fb4013113e5cfd5ec24824be116f1a1ca9427c69e1595fa
 
 # Add path to BusyBox
 ENV PATH="/usr/bin:/bin:/busybox"
