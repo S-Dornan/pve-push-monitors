@@ -72,6 +72,7 @@ jobs:
           format: 'table'
           exit-code: '1' # Block pushes on critical or high vulnerability detection.
           severity: 'CRITICAL,HIGH'
+          ignore-unfixed: true # Except when the patch is not available.
 
       - name: Build and push
         uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7
