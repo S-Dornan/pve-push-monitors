@@ -4,7 +4,7 @@
 
 services:
   health-monitor:
-    image: ghcr.io/s-dornan/pve-push-monitor:latest@sha256:00b7d55808b26c610312aea32a3bc9bb763e45c4b10c16490bcae1d03e4f23de
+    image: ghcr.io/s-dornan/pve-push-monitor:latest@sha256:400de67490b8ecf7ceb58b0c7901e645f6d05165bb1990dba942c171dadf6cd6
     container_name: uptime-kuma-health
     restart: always
     environment:
@@ -15,7 +15,7 @@ services:
       - CF_CLIENT_SECRET=${CF_CLIENT_SECRET}
 
   stream-monitor:
-    image: ghcr.io/s-dornan/pve-push-monitor:latest@sha256:00b7d55808b26c610312aea32a3bc9bb763e45c4b10c16490bcae1d03e4f23de
+    image: ghcr.io/s-dornan/pve-push-monitor:latest@sha256:400de67490b8ecf7ceb58b0c7901e645f6d05165bb1990dba942c171dadf6cd6
     container_name: uptime-kuma-stream
     restart: always
     environment:
